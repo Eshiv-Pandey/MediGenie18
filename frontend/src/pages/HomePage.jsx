@@ -8,6 +8,7 @@ import ExerciseList from '../components/ExerciseList';
 import NutritionList from '../components/NutritionList';
 import VideoPlayer from '../components/VideoPlayer';
 
+
 const HomePage = () => {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -61,9 +62,9 @@ const HomePage = () => {
   if (error) return <div className="error">Error: {error}</div>;
 
   return (
-    <div className="container">
+    <div className="container" id="papa">
       <header>
-        <h1>Health Information Portal</h1>
+        <h1 className="glitch-text" data-text="Health Information Portal">Health Information Portal</h1>
         <p>Find home remedies, exercises, nutrition advice, and educational videos for various health conditions</p>
         {user && <p className="welcome-message">Welcome back, {user.username}!</p>}
       </header>

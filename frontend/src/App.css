@@ -11,6 +11,7 @@
     --white: #fff;
     --warning-bg: #fff3cd;
     --precaution-bg: #f8d7da;
+    --p-color-bg:linear-gradient(135deg, #4CAF50 0%, #3e92cc 100%);
 }
 
 * {
@@ -23,21 +24,21 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: var(--light-gray);
+    /* background-image: url(https://images.pexels.com/photos/30922923/pexels-photo-30922923/free-photo-of-passenger-plane-flying-overhead-in-clear-blue-sky.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2); */
     padding: 0;
     margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;   /* <-- This is what you're asking for */
+    background-position: center;
+    height: 100vh; /* Full-screen height */
+      width: 100%;
 }
 
 
 /* Layout */
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem;
-    background-color: var(--white);
-    min-height: 100vh;
-}
+
+
 
 header {
     text-align: center;
@@ -50,13 +51,18 @@ header {
 /* Typography */
 
 h1 {
-    color: var(--primary-color);
     margin-bottom: 0.5rem;
 }
 
+
+
 h2 {
-    color: var(--secondary-color);
+    background: linear-gradient(135deg, #4CAF50 0%, #3e92cc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin: 1.5rem 0 1rem;
+    display: inline-block; /* Needed for gradient to work properly */
 }
 
 h3 {
@@ -77,12 +83,27 @@ h5 {
 }
 
 p {
+    color:white;
     margin-bottom: 1rem;
 }
 
 
 /* Components */
 
+.container{
+    
+ 
+  box-sizing: border-box;
+}
+
+.App{
+    height:100vh;
+    width:100vw;
+}
+
+
+/* Updated Dropdown Styles */
+/* Updated Dropdown Styles */
 .condition-selector {
     margin: 2rem 0;
     text-align: center;
@@ -93,25 +114,71 @@ p {
     display: inline-block;
     width: 100%;
     max-width: 400px;
+    transition: all 0.3s ease;
 }
 
 .condition-dropdown {
     appearance: none;
     width: 100%;
-    padding: 0.8rem 1rem;
-    font-size: 1rem;
-    border: 1px solid var(--medium-gray);
-    border-radius: 4px;
-    background-color: var(--white);
+    padding: 1rem 3rem 1rem 1.5rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
     cursor: pointer;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.condition-dropdown:hover {
+    border-color: var(--secondary-color);
+    box-shadow: 0 6px 20px rgba(46, 204, 113, 0.2);
+}
+
+.condition-dropdown:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
 }
 
 .dropdown-arrow {
     position: absolute;
-    right: 1rem;
+    right: 1.5rem;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.select-wrapper:hover .dropdown-arrow {
+    color: var(--secondary-color);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Animation when dropdown opens */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(46, 204, 113, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
+.condition-dropdown:focus {
+    animation: pulse 1.5s infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .condition-dropdown {
+        padding: 0.8rem 2.5rem 0.8rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .dropdown-arrow {
+        right: 1rem;
+    }
 }
 
 .info-sections {
@@ -278,19 +345,87 @@ button:hover {
     border-radius: 4px;
 }
 
+/* ---- Modern Health Navbar ---- */
 nav {
-    background: #333;
-    padding: 15px;
+    background: linear-gradient(135deg, #4CAF50 0%, #3e92cc 100%);
+    padding: 0.8rem 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 nav a {
     color: white;
-    margin: 0 15px;
+    margin: 0 1.5rem;
     text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: all 0.4s ease;
+    display: inline-block;
 }
 
 nav a:hover {
-    text-decoration: underline;
+    color: #fff;
+    transform: translateY(-2px);
+    text-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Animated underline on current page */
+nav a.active::after {
+    width: 100%;
+    background: var(--accent-color);
+    height: 3px;
+}
+
+/* Pulse animation for emergency/important items */
+@keyframes navPulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+nav a.emergency {
+    background: var(--accent-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    animation: navPulse 2s infinite;
+    margin-left: 1rem;
+}
+
+nav a.emergency:hover {
+    transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    nav {
+        padding: 0.8rem 1rem;
+    }
+    
+    nav a {
+        margin: 0 0.8rem;
+        font-size: 1rem;
+    }
 }
 
 .welcome-message {
@@ -321,3 +456,449 @@ nav a:hover {
 .icon {
     margin-right: 8px;
 }
+
+/* h1 glitch-text */
+.glitch-text {
+    font-size: 5rem;
+    font-weight: bold;
+    position: relative;
+    color: rgb(62, 165, 73);
+    background: transparent;
+    animation: glitch-main 5s infinite;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: transparent;
+    color: #ff00c1; /* pink */
+    overflow: hidden;
+    clip-path: inset(0 0 0 0); /* Show full initially */
+    mix-blend-mode: lighten; /* Key addition */
+    opacity: 0.5; /* Make glitch color visible */
+}
+
+.glitch-text::before {
+    color: #ff00c1; /* pink */
+    z-index: 1;
+    animation: glitch-top 2s infinite;
+}
+
+.glitch-text::after {
+    color: #00fff9; /* cyan */
+    z-index: 0;
+    animation: glitch-bottom 2s infinite;
+}
+
+/* Main glitch animation */
+@keyframes glitch-main {
+    0%, 100% { transform: none; }
+    10% { transform: skew(0.5deg, 0.5deg); }
+    20% { transform: skew(-0.5deg, -0.5deg); }
+    30% { transform: skew(0.5deg, 0.5deg); }
+    40% { transform: skew(-0.5deg, -0.5deg); }
+    50% { transform: none; }
+}
+
+/* Top glitch (pink) */
+@keyframes glitch-top {
+    0%, 100% { transform: none; }
+    10% { transform: translate(2px, -2px); }
+    20% { transform: translate(-2px, 2px); }
+    30% { transform: translate(2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    50% { transform: none; }
+}
+
+/* Bottom glitch (cyan) */
+@keyframes glitch-bottom {
+    0%, 100% { transform: none; }
+    10% { transform: translate(-2px, 2px); }
+    20% { transform: translate(2px, -2px); }
+    30% { transform: translate(-2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    50% { transform: none; }
+}
+
+/* body animation */
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image: 
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%232ecc71" opacity="0.03"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>'),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%233498db" opacity="0.03"><path d="M12 2L4 12h3v8h10v-8h3L12 2zm0 5l5 5h-3v5H10v-5H7l5-5z"/></svg>');
+    background-size: 120px;
+    animation: float 120s linear infinite;
+    z-index: -1;
+    pointer-events: none;
+  }
+  
+  @keyframes float {
+    0% { background-position: 5% 10%, 95% 90%; }
+    50% { background-position: 95% 20%, 5% 80%; }
+    100% { background-position: 5% 10%, 95% 90%; }
+  }
+
+
+/* ===== Ultra-Premium Health Cards ===== */
+.info-section {
+    --card-bg: rgba(255, 255, 255, 0.98);
+    --card-accent: #00b894;
+    --card-accent-secondary: #0984e3;
+    --card-text: #2d3436;
+    
+    background: var(--card-bg);
+    backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow:
+      0 1.6px 3.6px rgba(0, 0, 0, 0.024),
+      0 4.4px 10px rgba(0, 0, 0, 0.035),
+      0 10.6px 24.1px rgba(0, 0, 0, 0.046),
+      0 35px 80px rgba(0, 0, 0, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    overflow: hidden;
+    transform: translateY(0) scale(1);
+    z-index: 1;
+  }
+  
+  /* Biometric Pulse Effect */
+  .info-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(var(--card-accent), 0.03) 0%, transparent 25%),
+      radial-gradient(circle at 80% 70%, rgba(var(--card-accent-secondary), 0.03) 0%, transparent 25%);
+    z-index: -1;
+    animation: biometricPulse 12s infinite alternate;
+  }
+  
+  /* Dynamic Border Flow */
+  .info-section::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(
+      45deg,
+      var(--card-accent),
+      var(--card-accent-secondary),
+      var(--card-accent)
+    );
+    background-size: 300% 300%;
+    z-index: -2;
+    border-radius: 22px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: borderFlow 6s infinite linear;
+  }
+  
+  /* Hover Magic */
+  .info-section:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow:
+      0 6.4px 14.4px rgba(0, 184, 148, 0.13),
+      0 17.6px 40px rgba(0, 184, 148, 0.2),
+      0 42.4px 96.4px rgba(0, 184, 148, 0.27),
+      0 140px 320px rgba(0, 184, 148, 0.4);
+  }
+  
+  .info-section:hover::after {
+    opacity: 0.7;
+  }
+  
+  /* Content Hierarchy */
+  .info-section h3 {
+    color: var(--card-text);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+    font-weight: 600;
+  }
+  
+  .info-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 48px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--card-accent), var(--card-accent-secondary));
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  
+  .info-section:hover h3::after {
+    width: 96px;
+  }
+  
+  /* Body Text */
+  .info-section p {
+    color: var(--card-text);
+    opacity: 0.9;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+    font-weight: 400;
+  }
+  
+  /* Status Indicator */
+  .info-section .status-indicator {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 12px;
+    height: 12px;
+    background: var(--card-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(var(--card-accent), 0.3);
+    animation: statusPulse 2s infinite;
+  }
+  
+  /* Animations */
+  @keyframes biometricPulse {
+    0% { opacity: 0.8; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.05); }
+  }
+  
+  @keyframes borderFlow {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+  
+  @keyframes statusPulse {
+    0% { box-shadow: 0 0 0 0 rgba(var(--card-accent), 0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(var(--card-accent), 0); }
+    100% { box-shadow: 0 0 0 0 rgba(var(--card-accent), 0); }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .info-section {
+      padding: 2rem;
+      border-radius: 16px;
+    }
+    
+    .info-section:hover {
+      transform: translateY(-8px);
+    }
+  }
+
+/* navbar
+ */
+ /* ===== Premium Register Button ===== */
+nav a:last-child {
+    /* Base Styles */
+    background: #e74c3c; /* Your accent color */
+    color: white;
+    border-radius: 50px;
+    padding: 0.7rem 3rem;
+    font-weight: 700;
+    text-decoration: none;
+    position:fixed;
+    overflow: hidden;
+    box-shadow: 
+      0 4px 15px rgba(231, 76, 60, 0.3),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+    transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    
+    /* Shimmer Effect Layer */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: left 0.7s ease;
+    }
+    
+    /* Hover States */
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 
+        0 8px 25px rgba(231, 76, 60, 0.4),
+        inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+      
+      &::before {
+        left: 100%;
+      }
+    }
+    
+    /* Active/Pressed State */
+    &:active {
+      transform: translateY(1px);
+      box-shadow: 
+        0 2px 10px rgba(231, 76, 60, 0.3),
+        inset 0 1px 0 rgba(0, 0, 0, 0.1);
+    }
+  }
+
+
+  /* homePAge corusal */
+
+/* Home.css */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    height: 70vh;
+    max-height: 600px;
+  }
+  
+  .carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  
+  .carousel-slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  
+  .carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .carousel-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease 0.3s;
+  }
+  
+  .carousel-slide.active .carousel-caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  .carousel-nav {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 10;
+  }
+  
+  .carousel-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+  }
+  
+  .carousel-dot.active {
+    background: white;
+    transform: scale(1.2);
+  }
+  
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+    transition: all 0.3s ease;
+    font-size: 1.5rem;
+  }
+  
+  .carousel-container:hover .carousel-arrow {
+    opacity: 1;
+  }
+  
+  .carousel-arrow.prev {
+    left: 20px;
+  }
+  
+  .carousel-arrow.next {
+    right: 20px;
+  }
+  
+  .carousel-arrow:hover {
+    background: rgba(0,0,0,0.8);
+  }
+  
+  /* Animation for infinite scroll */
+  @keyframes slideIn {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+  
+  @keyframes slideOut {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .carousel-container {
+      height: 50vh;
+      border-radius: 8px;
+    }
+    
+    .carousel-caption {
+      padding: 1rem;
+    }
+    
+    .carousel-arrow {
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+    }
+  }
+
+

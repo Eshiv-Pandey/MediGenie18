@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import { AuthProvider } from './context/AuthContext';
+
 import './App.css';
 
 function App() {
